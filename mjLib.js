@@ -103,8 +103,8 @@ function removeClass(node,className){
             classList.splice(i,1,"");
         }
     }
-
-   node.className=classList.toString().replace(",","");
+   // node.className=classList.toString().replace(",",""); //不能全局替换
+   node.className=classList.join(' ');
 }
 
 
