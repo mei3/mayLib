@@ -1,5 +1,4 @@
-;
-(function(global) {
+;(function(global) {
 	// 定义命名空间
 	var mayDom = {};
 
