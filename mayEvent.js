@@ -44,23 +44,36 @@
 	};
 
 	// 取消事件冒泡
-	mayEvent.cancelBubble = function() {
-		var ev = this.getEvent();
+	mayEvent.cancelBubble = function(ev) {
 		if (ev.stopPropagation) {
 			ev.stopPropagation();
-		} else {
+			return function() {
+				ev.stopPropagation();
+			};
+		} else if (ev.cancelBubble) {
 			ev.cancelBubble = true;
+			return function() {
+				ev.cancelBubble = true;
+			};
 		}
 	};
 	// 阻止默认事件
-	function preventDefault() {
-		var ev = this.getEvent();
-		if (ev.stopPropagation) {
+	mayEvent.preventDefault = function(ev) {
+
+		if (typeof ev.preventDefault === 'function') {
 			ev.preventDefault();
-		} else {
+			return function(ev) {
+				ev.preventDefault();
+			};
+
+		} else if (typeof ev.returnValue === 'boolean') {
 			ev.returnValue = false;
+			return function(ev) {
+				ev.returnValue = false;
+			};
+
 		}
-	}
+	};
 
 	// 暴露接口
 	global.mayEvent = mayEvent;
