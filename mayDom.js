@@ -26,7 +26,7 @@
 					}
 				}
 
-				return domList;
+				return domList.reverse();
 			};
 
 		}
@@ -68,7 +68,7 @@
 				domList.push(curChild);
 			}
 		}
-		return domList;
+		return domList.reverse();
 
 	};
 
