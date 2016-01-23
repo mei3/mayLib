@@ -26,9 +26,15 @@
 				dom.removeEventListener(dom, type, handler);
 			};
 		} else if (document.detachEvent) {
-			dom.detachEvent("on" + type, handler);
+			return function(dom, type, handler) {
+				dom.detachEvent("on" + type, handler);
+			};
+
 		} else {
-			dom["on" + type] = null;
+			return function(dom, type) {
+				dom["on" + type] = null;
+			};
+
 		}
 	})();
 
@@ -47,12 +53,12 @@
 	mayEvent.cancelBubble = function(ev) {
 		if (ev.stopPropagation) {
 			ev.stopPropagation();
-			return function() {
+			return function(ev) {
 				ev.stopPropagation();
 			};
 		} else if (ev.cancelBubble) {
 			ev.cancelBubble = true;
-			return function() {
+			return function(ev) {
 				ev.cancelBubble = true;
 			};
 		}
