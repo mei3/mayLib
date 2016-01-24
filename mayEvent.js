@@ -44,8 +44,7 @@
 	};
 
 	// 获得触发事件的目标
-	mayEvent.getTarget = function() {
-		var ev = this.getEvent(event);
+	mayEvent.getTarget = function(ev) {
 		return ev.target || ev.srcElement;
 	};
 
@@ -53,12 +52,14 @@
 	mayEvent.cancelBubble = function(ev) {
 		if (ev.stopPropagation) {
 			ev.stopPropagation();
-			return function(ev) {
+			ev = null;
+			this.cancelBubble = function(ev) {
 				ev.stopPropagation();
 			};
 		} else if (ev.cancelBubble) {
 			ev.cancelBubble = true;
-			return function(ev) {
+			ev = null;
+			this.cancelBubble = function(ev) {
 				ev.cancelBubble = true;
 			};
 		}
@@ -68,13 +69,15 @@
 
 		if (typeof ev.preventDefault === 'function') {
 			ev.preventDefault();
-			return function(ev) {
+			ev = null;
+			this.preventDefault = function(ev) {
 				ev.preventDefault();
 			};
 
 		} else if (typeof ev.returnValue === 'boolean') {
 			ev.returnValue = false;
-			return function(ev) {
+			ev = null;
+			this.preventDefault = function(ev) {
 				ev.returnValue = false;
 			};
 
