@@ -1,4 +1,5 @@
-;(function(global) {
+;
+(function(global) {
 	// 定义命名空间
 	var mayDom = {};
 
@@ -117,6 +118,23 @@
 		node.className = classList.join(' ');
 	};
 
+	// //string转dom
+	mayDom.strToDom = function(str) {
+		var deal = document.createElement('div');
+		deal.innerHTML = str;
+		return deal.childNodes;
+	};
+
+
+	// dom转dtring
+	mayDom.domToStr = function(dom) {
+		var deal = document.createElement('div'),
+			len = dom.length;
+		for (var i = 0; i < len; i++) {
+			deal.appendChild(dom[i].cloneNode(true));
+		}
+		return deal.innerHTML;
+	};
 	// 暴露接口
 	global.mayDom = mayDom;
 
