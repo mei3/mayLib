@@ -1,9 +1,19 @@
 // 千位分隔符
 function thousandSeparator(num) {
-    var numLen = num.toString().length,
+    var numStr = num.toString();
+
+    if (numStr.indexOf('-') > -1) {
+        numStr = numStr.substring(1);
+    }
+    var numLen = numStr.length,
         count = Math.floor(numLen / 3),
         numArr = [];
-    // 消除位数为3的倍数的情况
+
+    if (numLen === 3) {
+        return num;
+    }
+
+    // 消除位数为3的倍数且大于3的情况
     if (numLen % 3 === 0) {
         count--;
     }
@@ -17,8 +27,9 @@ function thousandSeparator(num) {
             numArr.push(casArr[0]);
         }
     }
+
     // 规划分组数字顺序
     num = numArr.reverse().join(',');
-    console.log(num);
+    // console.log(num);
     return num;
 }
