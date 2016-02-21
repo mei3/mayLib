@@ -1,21 +1,20 @@
-// 千位分隔符
+// 第一种
 function thousandSeparator(num) {
-    var numStr = num.toString(),
-        minus = false;
+    var numStr = num + '';
 
-    if (numStr.indexOf('-') > -1) {
+    // 去掉符号后转化为字符串
+    if (numStr.indexOf('-') > -1 || numStr.indexOf('+') > -1) {
         numStr = numStr.substring(1);
-        minus = true;
+
     }
     var numLen = numStr.length,
         count = Math.floor(numLen / 3);
-    if (numLen === 3) {
+    if (numLen <= 3) {
         return num;
     } else {
         num = num / 1000;
         numstr = (num + '').replace('.', ',');
     }
-
     return numstr;
 }
 // 正则实现
@@ -29,5 +28,3 @@ function commafy(num) {
 
     return num;
 }
-// commafy(123456789);
-thousandSeparator(-123456789);
