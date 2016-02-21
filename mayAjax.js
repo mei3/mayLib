@@ -23,3 +23,25 @@ var client = createStreamingClient("streaming.php", function(data) {
 }, function(data) {
     alert("Done!");
 });
+
+// ajax跨域兼容性方案
+function creatCrossReq(type, url) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+        xhr.open(type, url, true);
+        return xhr;
+    } else if ((typeof xDomainRequest) != undefined) {
+        var vxhr = new xDomainRequest();
+        vxhr.open(type, url);
+        return vxhr;
+    } else {
+        return null;
+    }
+}
+var req = creatCrossReq('get', "htttp:www.baidu.com");
+if (req) {
+    req.onload = function() {
+        console.log(req.responseText);
+    };
+    req.send(null);
+}
