@@ -23,7 +23,7 @@
 	mayEvent.delEvent = (function() {
 		if (document.removeEventListener) {
 			return function(dom, type, handler) {
-				dom.removeEventListener(dom, type, handler);
+				dom.removeEventListener(type, handler,false);
 			};
 		} else if (document.detachEvent) {
 			return function(dom, type, handler) {
